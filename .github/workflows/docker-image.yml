@@ -18,7 +18,7 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run: docker login --username $DOCKER_USER --password $DOCKER_PASSWORD
+      run: echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
     - name: build docker image
       run: docker build . --file Dockerfile --tag erickdsama/test_flink:$(date +%s)
     - name: Docker push
