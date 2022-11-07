@@ -1,0 +1,25 @@
+version: "3.0"
+
+services:
+  django-api:
+    build: .
+    ports:
+      - "8090:8000"
+    volumes:
+      - .:/testFlink
+  psql:
+    image: postgres
+    volumes:
+      - pg_volume:/var/lib/postgresql
+    networks:
+      - localnet
+    env_file:
+      - .env_db
+    ports:
+      - "5492:5432"
+networks:
+  localnet:
+    external: true
+volumes:
+  pg_volume:
+    external: true
