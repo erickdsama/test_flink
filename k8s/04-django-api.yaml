@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-api
+  labels:
+    app: api
+    version: '0.0.1'
+spec:
+  selector:
+    matchLabels:
+      app: api
+      tier: backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: api
+        tier: backend
+    spec:
+      containers:
+        - name: django-api
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "200m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-config
+                  key: ENVIRONMENT
+            - name: PG_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: django-config
+                  key: PG_DATABASE
+            - name: PG_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: django-config
+                  key: PG_USER
+            - name: PG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: django-config
+                  key: PG_HOST
+            - name: PG_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-config
+                  key: PG_PORT
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-pwds
+                  key: PG_PASSWORD
+            - name: financial_api_key
+              valueFrom:
+                secretKeyRef:
+                  name: secret-pwds
+                  key: FINANCIAL_API_KEY
+          image: erickdsama/test_flink:v0.1
+          ports:
+            - containerPort: 8000
+---
+##########################################
+### SERVICE OF API                  ######
+##########################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  labels:
+    app: api
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 8000
+      port: 8000
+  selector:
+    app: api
+    tier: backend
+
