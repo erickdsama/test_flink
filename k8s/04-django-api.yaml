@@ -4,7 +4,8 @@ metadata:
   name: django-api
   labels:
     app: api
-    version: '0.0.1'
+    redeploy: '230302032'
+    version: '0.0.2'
 spec:
   selector:
     matchLabels:
@@ -62,7 +63,7 @@ spec:
                 secretKeyRef:
                   name: secret-pwds
                   key: FINANCIAL_API_KEY
-          image: erickdsama/test_flink:v0.1
+          image: erickdsama/test_flink:v0.2.1
           ports:
             - containerPort: 8000
 ---

@@ -64,8 +64,6 @@ REST_FRAMEWORK = {
 }
 
 
-
-
 ROOT_URLCONF = 'testFlink.urls'
 
 TEMPLATES = [
@@ -139,9 +137,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-if os.getenv('ENVIRONMENT', 'DEVELOPMENT') == 'PRODUCTION':
-    from testFlink.environments.development_settings import *
-elif os.getenv('ENVIRONMENT', 'DEVELOPMENT') == 'DEVELOPMENT':
+environment = os.getenv('ENVIRONMENT', 'DEVELOPMENT')
+if environment == 'PRODUCTION':
+    from testFlink.environments.production_settings import *
+elif environment == 'DEVELOPMENT':
     from testFlink.environments.development_settings import *
 

@@ -5,7 +5,7 @@ metadata:
 data:
   EMAIL_SERVER: "smtp.sendgrid.net"
   FINANCIAL_API_KEY: "apikey"
-  ENVIRONMENT: "development"
+  ENVIRONMENT: "PRODUCTION"
   PG_DATABASE: "test_flink"
   PG_USER: "test_flink"
   PG_PORT: "5432"
