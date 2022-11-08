@@ -14,11 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: docker login
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run: echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
+    - name: DockerHub login
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
     - name: build docker image
       run: docker build . --file Dockerfile --tag erickdsama/test_flink:$(date +%s)
     - name: Docker push
