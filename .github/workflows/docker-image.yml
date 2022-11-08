@@ -24,6 +24,6 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: build docker image
-      run: docker build . --file Dockerfile --tag erickdsama/test_flink:$(date +%s)
+      run: docker build . --file Dockerfile --tag erickdsama/test_flink:latest
     - name: Docker push
-      run: docker push ${{secrets.DOCKER_USER}}/test_flink
+      run: docker push ${{secrets.DOCKER_USER}}/test_flink:latest
