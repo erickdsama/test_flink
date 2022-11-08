@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+    redeploy: '230302032'
+    version: '0.0.1'
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+      tier: frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: webapp
+        tier: frontend
+    spec:
+      containers:
+        - name: webapp
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "200m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          image: erickdsama/flink_web:v0.2.1
+          ports:
+            - containerPort: 8000
+---
+##########################################
+### SERVICE OF API                  ######
+##########################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+  selector:
+    app: webapp
+    tier: frontend
+

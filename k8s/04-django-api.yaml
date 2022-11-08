@@ -63,7 +63,7 @@ spec:
                 secretKeyRef:
                   name: secret-pwds
                   key: FINANCIAL_API_KEY
-          image: erickdsama/test_flink:v0.2.1
+          image: erickdsama/test_flink:v0.2.2
           ports:
             - containerPort: 8000
 ---

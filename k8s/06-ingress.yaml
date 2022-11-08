@@ -10,6 +10,7 @@ spec:
     - hosts:
         - "petwarn.me"
         - "test.petwarn.me"
+        - "webflink.petwarn.me"
       secretName: "petwarn2-tls"
   rules:
     - host: "test.petwarn.me"
@@ -22,3 +23,13 @@ spec:
                 name: api
                 port:
                   number: 8000
+    - host: "webflink.petwarn.me"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80

@@ -7,8 +7,7 @@ PG_PORT = os.getenv('PG_PORT', '')
 PG_PASSWORD = os.getenv('PG_PASSWORD', '')
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',
-    'http://0.0.0.0:8080',
+    'https://webflink.petwarn.me',
 ]
 
 ALLOWED_HOSTS = [
